@@ -36,6 +36,105 @@
 
 1. John Newbery talks about [verification vs. computation](https://youtu.be/np-SCwkqVy4?t=934), and he bring it up as a big reason why he thinks bitcoin can scale but is skeptical about ethereum. Is there a qualitative difference between verification and computation? And is it the fact that ethereum is capable of performing arbitrary computation that makes the whole thing difficult to scale, or is it that specifically smart contracts that require arbitrary computation won’t be able to scale \(as in those contracts would be very expensive to run\)?
 
+#### Answer
+1. Yes, there is a qualitative difference between verification and computation.
+   - Verification is an action taken to compare the contents of something to some “source of truth” to determine the truthiness (including authenticity, accuracy, and integrity) of the data. To verify is to care about what is in the data.
+   - Computation, on the other hand, does not necessitate or imply any of the properties of verification. The term “Garbage In, Garbage Out (GIGO)” is descriptive here. If a user writes bad code, the computer won’t verify that the code won’t fail at execution if there are runtime errors or logical errors. The only “verification” that is done by a computer is actually done by applications that run on the computer, e.g. parsers, lexers, etc. (IDEs, linters). These tools are used when writing code to ensure that the code syntax is accurate and can be parsed into lexums for compilation or interpretation (depending on the language).
+   - The lack of scaling in Ethereum is focused more on the turning completeness of the smart contracting language and the complexity involved with executing arbitrary, turing complete scripts on a public blockchain. In blockchain networks, all validation nodes must run the scripts submitted to the chain by other nodes, so if the script is arbitrary, non-deterministic and turning complete, how do you prevent that script from executing infinitely? Enter the Ethereum “gas limit.”
+   - Performing arbitrary computation does scale if designed properly -- bitcoin is an example of this fact. Bitcoin Script scales because of its limited feature set and deterministic execution of arbitrary scripts.
+
+
+#### Notes
+- Bitcoin Script
+  - description: smart contract programming language for bitcoin that uses data to validate arbitrary OP code scripts on-chain
+  - attributes: non-turning complete (deterministic), forth-like, reverse-polish, stack-based language
+  - predicate: answers a True or False question
+  - question: Does the scriptSig data satisfy the scriptPubkey conditions? i.e. Does the user spending the ouptput own that output?
+  - answer: True (1) or False (0)
+
+#### P2PKH: Practical Structure & Example
+- Structure
+  - scriptPubkey
+    ```script
+    OP_DUP OP_HASH160 <Hash160(owner_pubkey)> OP_EQUALVERIFY OP_CHECKSIG
+    ```
+  - scriptsig
+    ```script
+    <OwnerSignature> <OwnerPubkey>
+    ```
+- Example
+  - scriptPubkey
+    ```script
+    OP_DUP OP_HASH160 ab68025513c3dbd2f7b92a94e0581f5d50f654e7 OP_EQUALVERIFY OP_CHECKSIG
+    ```
+  - scriptsig
+    ```script
+    3045022100884d142d86652a3f47ba4746ec719bbfbd040a570b1deccbb6498c75c4ae24cb02204b9f039ff08df09cbe9f6addac960298cad530a863ea8f53982c09db8f6e3813 0484ecc0d46f1918b30928fa0e4ed99f16a0fb4fde0735e7ade8416ab9fe423cc5412336376789d172787ec3457eee41c04f4938de5cc17b4a10fa336a8d752adf
+    ```
+- Stack
+```
+  |                     |
+  |     OP_CHECKSIG     |
+  |    OP_EQUALVERIFY   |
+  |    ab6802551...e7   |
+  |      OP_HASH160     |
+  |        OP_DUP       |
+  |    0484ecc0d...13   |
+  |    304502210...df   |
+  |_____________________|
+```
+- Execution
+```
+  |                     |
+  |        OP_DUP       | <-- take this action
+  |    0484ecc0d...13   | <-- on this data
+  |    304502210...df   |
+  |_____________________|
+
+  |                     |
+  |    0484ecc0d...13   | <-- push result of prior step onto stack
+  |    0484ecc0d...13   |
+  |    304502210...df   |
+  |_____________________|
+
+  |                     |
+  |      OP_HASH160     | <-- take this action
+  |    0484ecc0d...13   | <-- on this data
+  |    0484ecc0d...13   |
+  |    304502210...df   |
+  |_____________________|
+
+  |                     |
+  |    ab6802551...e7   | <-- push result of prior step onto stack
+  |    0484ecc0d...13   |
+  |    304502210...df   |
+  |_____________________|
+
+  |                     |
+  |    ab6802551...e7   | <-- push next item on stack; since it is data, take no action, continue
+  |    ab6802551...e7   |
+  |    0484ecc0d...13   |
+  |    304502210...df   |
+  |_____________________|
+
+  |                     |
+  |    OP_EQUALVERIFY   | <-- take this action
+  |    ab6802551...e7   | <-- on this data
+  |    ab6802551...e7   | <-- and this data; if it passes, continue; else, fail
+  |    0484ecc0d...13   |
+  |    304502210...df   |
+  |_____________________|
+
+  |                     |
+  |     OP_CHECKSIG     | <-- take this action
+  |    0484ecc0d...13   | <-- on this data
+  |    304502210...df   | <-- and this data; if it passes, the script is valid; else, the script is invalid
+  |_____________________|
+
+  |                     |
+  |         1           | <-- Answer to the question: Is this script valid? 1 = True = Valid!
+  |_____________________|
+```
 ### Output Descriptors
 
 1. What is the benefit of using output descriptors?
