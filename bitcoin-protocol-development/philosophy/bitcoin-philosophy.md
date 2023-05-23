@@ -1,0 +1,2 @@
+Chaincode Weekly Doc: https://docs.google.com/document/d/17EB2q9v1vtgtQohLaGsJMkyPvJgJBILHoL46JDk7Obo/edit?usp=sharing
+Debate Team Doc: https://docs.google.com/document/d/1iX569E7B-JWc10OXy4UNouYjsPhp7ah9i5cplbajg7I/edit?usp=sharing
