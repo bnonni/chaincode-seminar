@@ -32,6 +32,8 @@
 
 ## Discussion Questions
 
+Answers: https://docs.google.com/document/d/1mMIF0WxJXkEckZBq23UC_j1EiQqQoCOrZedgj7_2p0Q/edit?usp=sharing
+
 ### SCRIPT
 
 1. John Newbery talks about [verification vs. computation](https://youtu.be/np-SCwkqVy4?t=934), and he bring it up as a big reason why he thinks bitcoin can scale but is skeptical about ethereum. Is there a qualitative difference between verification and computation? And is it the fact that ethereum is capable of performing arbitrary computation that makes the whole thing difficult to scale, or is it that specifically smart contracts that require arbitrary computation won’t be able to scale \(as in those contracts would be very expensive to run\)?

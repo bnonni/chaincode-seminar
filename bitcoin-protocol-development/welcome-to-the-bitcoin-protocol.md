@@ -16,6 +16,8 @@
 
 ## Discussion Questions
 
+Answers: https://docs.google.com/document/d/1HFZJrnedljudbSN5oVPezij3Kwcp8DM-LDewUISb64s/edit?usp=sharing
+
 ### Bitcoin Whitepaper
 
 1. Why did Satoshi put so much stress on the irreversibility of transactions?

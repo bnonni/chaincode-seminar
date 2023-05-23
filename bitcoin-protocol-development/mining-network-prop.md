@@ -26,6 +26,8 @@ If you haven't recently read the [Mining and Consensus chapter in Mastering Bitc
 
 ## Discussion Questions
 
+Answers: https://docs.google.com/document/d/1I2_tZbx_t4ydU5YNiZw9FeR8NfnUB4oxZaE-sS7e1l4/edit?usp=sharing
+
 ### Mining and Consensus
 
 1. Why would some miners use parts of the version field as a nonce? What effect did this have on nodes?

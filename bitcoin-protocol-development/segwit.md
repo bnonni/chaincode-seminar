@@ -24,6 +24,8 @@
 
 ## Discussion Questions
 
+Answers: https://docs.google.com/document/d/1uwHZ8zYnEVOAUaFv14_qngy9j3QK5WLctsTtivzqCGk/edit?usp=sharing
+
 ### What is SegWit?
 
 1. Is a non-segwit node considered a full node?

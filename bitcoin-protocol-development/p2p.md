@@ -22,6 +22,8 @@ _Note that this section depends on reviewing the network propagation resources o
 
 ## Discussion Questions
 
+Answers: https://docs.google.com/document/d/103ZnXPxRElMSIjhmyJKFNr0Dmqw2UVmKtUJPs5Tp9Bc/edit?usp=sharing
+
 ### Attacking P2P
 
 1. Given the attack surface in P2P, is running a full node worth it?
